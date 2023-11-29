@@ -9,3 +9,6 @@ https://ratking.itch.io/bloed - хороший редактор на юнити
 https://www.youtube.com/@wheezyworks/videos - некоторые идеи по редактору блоков
 FanWorlds - тут моя первая версия редактора
 14DRLRetro3D - тут был секторный редактор
+https://studio.dungeonprint.com/ - редактор данжей из тайлов для настолок
+Asset Forge
+rpg in box

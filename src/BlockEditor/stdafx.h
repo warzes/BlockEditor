@@ -33,6 +33,12 @@
 #include <string_view>
 #include <filesystem>
 
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
+
+#include <json.hpp>
+
 #if defined(_MSC_VER)
 #	pragma warning(pop)
 #endif
