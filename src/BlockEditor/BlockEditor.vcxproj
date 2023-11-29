@@ -123,8 +123,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="EditorApp.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuBar.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -141,7 +143,12 @@
     <ClInclude Include="..\3rdparty\imgui\imstb_truetype.h" />
     <ClInclude Include="..\3rdparty\json.hpp" />
     <ClInclude Include="BaseSceneShader.h" />
+    <ClInclude Include="EditorApp.h" />
     <ClInclude Include="GameApp.h" />
+    <ClInclude Include="IMode.h" />
+    <ClInclude Include="MenuBar.h" />
+    <ClInclude Include="Settings.h" />
+    <ClInclude Include="softball_gold_ttf.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

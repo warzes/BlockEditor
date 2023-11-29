@@ -25,6 +25,12 @@
     <ClCompile Include="..\3rdparty\imgui\imgui_widgets.cpp">
       <Filter>3rdparty\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="EditorApp.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuBar.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseSceneShader.h" />
@@ -57,6 +63,21 @@
     <ClInclude Include="..\3rdparty\json.hpp">
       <Filter>3rdparty</Filter>
     </ClInclude>
+    <ClInclude Include="EditorApp.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="softball_gold_ttf.h">
+      <Filter>Editor\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="IMode.h">
+      <Filter>Editor\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBar.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Editor">
@@ -67,6 +88,12 @@
     </Filter>
     <Filter Include="3rdparty\imgui">
       <UniqueIdentifier>{a5954f0e-21e9-470c-b46e-b725ca1b04d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\assets">
+      <UniqueIdentifier>{243b743e-5669-4552-b23d-5a45f5b56f73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Modes">
+      <UniqueIdentifier>{eb84d1f1-9dde-4be9-a470-cc17e0846d4a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

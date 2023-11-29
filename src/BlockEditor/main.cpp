@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "GameApp.h"
+#include "EditorApp.h"
 //-----------------------------------------------------------------------------
 #if defined(_MSC_VER)
 #	pragma comment( lib, "Engine.lib" )
@@ -15,6 +16,7 @@ int main(
 	//createInfo.window.height = 960;
 	createInfo.window.vsyncEnabled = true;
 	auto engineDevice = EngineDevice::Create(createInfo);
-	engineDevice->RunApp(std::make_shared<GameApp>());
+	//engineDevice->RunApp(std::make_shared<GameApp>());
+	engineDevice->RunApp(std::make_shared<EditorApp>());
 }
 //-----------------------------------------------------------------------------
