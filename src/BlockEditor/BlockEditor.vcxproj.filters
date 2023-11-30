@@ -31,6 +31,33 @@
     <ClCompile Include="MenuBar.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="Dialog.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MapMan.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaceMode.cpp">
+      <Filter>Editor\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="PickMode.cpp">
+      <Filter>Editor\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="EntMode.cpp">
+      <Filter>Editor\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="Temp.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseSceneShader.h" />
@@ -77,6 +104,45 @@
     </ClInclude>
     <ClInclude Include="Settings.h">
       <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MapMan.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaceMode.h">
+      <Filter>Editor\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="PickMode.h">
+      <Filter>Editor\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="EntMode.h">
+      <Filter>Editor\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Temp.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="font_dejavu.h">
+      <Filter>Editor\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdparty\sinfl.h">
+      <Filter>3rdparty</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

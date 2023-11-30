@@ -49,6 +49,7 @@ inline void createImgui()
 }
 //-----------------------------------------------------------------------------
 #define SETTINGS_FILE_PATH "settings.json"
+EditorApp* gEditorApp = nullptr;
 //-----------------------------------------------------------------------------
 EditorApp::EditorApp()
 	: m_settings{
@@ -61,6 +62,7 @@ EditorApp::EditorApp()
 		.defaultTexturePath = "../Data/Textures/Tiles/texel_checker.png",
 		.defaultShapePath = "../Data/Models/Shapes/cube.obj",
 	}
+	, m_menuBar(std::make_unique<MenuBar>(m_settings))
 {
 	std::filesystem::directory_entry entry{ SETTINGS_FILE_PATH };
 	if (entry.exists())
@@ -71,6 +73,12 @@ EditorApp::EditorApp()
 	{
 		SaveSettings();
 	}
+	gEditorApp = this;
+}
+//-----------------------------------------------------------------------------
+EditorApp::~EditorApp()
+{
+	gEditorApp = nullptr;
 }
 //-----------------------------------------------------------------------------
 bool EditorApp::Create()
@@ -117,6 +125,9 @@ void EditorApp::Render()
 		ImGui::Button("Close");
 		ImGui::End();
 
+		m_editorMode->Draw();
+		m_menuBar->Draw();
+
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
@@ -124,6 +135,44 @@ void EditorApp::Render()
 //-----------------------------------------------------------------------------
 void EditorApp::Update(float deltaTime)
 {
+	m_menuBar->Update(deltaTime);
+
+	//Mode switching hotkeys
+	if (GetInputSystem().IsKeyPressed(Input::KEY_TAB))
+	{
+		// TODO:
+		//if (GetInputSystem().IsKeyDown(Input::KEY_LEFT_SHIFT))
+		//{
+		//	if (m_editorMode == m_tilePlaceMode.get()) ChangeEditorMode(EditorMode::PICK_SHAPE);
+		//	else ChangeEditorMode(EditorMode::PLACE_TILE);
+		//}
+		//else if (GetInputSystem().IsKeyDown(Input::KEY_LEFT_CONTROL))
+		//{
+		//	if (m_editorMode == m_tilePlaceMode.get()) ChangeEditorMode(EditorMode::EDIT_ENT);
+		//	else if (m_editorMode == m_entMode.get()) ChangeEditorMode(EditorMode::PLACE_TILE);
+		//}
+		//else
+		//{
+		//	if (m_editorMode == _tilePlaceMode.get()) ChangeEditorMode(EditorMode::PICK_TEXTURE);
+		//	else ChangeEditorMode(EditorMode::PLACE_TILE);
+		//}
+	}
+
+	//Save hotkey
+	if (GetInputSystem().IsKeyDown(Input::KEY_LEFT_CONTROL) && GetInputSystem().IsKeyPressed(Input::KEY_S))
+	{
+		if (!GetLastSavedPath().empty())
+		{
+			TrySaveMap(GetLastSavedPath());
+		}
+		else
+		{
+			m_menuBar->OpenSaveMapDialog();
+		}
+	}
+
+	m_editorMode->Update();
+
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
@@ -161,9 +210,43 @@ void EditorApp::ChangeEditorMode(const EditorMode newMode)
 	m_editorMode->OnEnter();
 }
 //-----------------------------------------------------------------------------
+void EditorApp::DisplayStatusMessage(std::string message, float durationSeconds, int priority)
+{
+	// TODO:
+}
+//-----------------------------------------------------------------------------
+void EditorApp::ResetEditorCamera()
+{
+	// TODO:
+}
+//-----------------------------------------------------------------------------
 void EditorApp::NewMap(int width, int height, int length)
 {
 	// TODO:
+}
+//-----------------------------------------------------------------------------
+void EditorApp::ExpandMap(Direction axis, int amount)
+{
+	// TODO:
+}
+//-----------------------------------------------------------------------------
+void EditorApp::ShrinkMap()
+{
+	// TODO:
+}
+//-----------------------------------------------------------------------------
+void EditorApp::TryOpenMap(std::filesystem::path path)
+{
+	// TODO:
+}
+//-----------------------------------------------------------------------------
+void EditorApp::TrySaveMap(std::filesystem::path path)
+{
+	// TODO:
+}
+//-----------------------------------------------------------------------------
+void EditorApp::TryExportMap(std::filesystem::path path, bool separateGeometry)
+{
 }
 //-----------------------------------------------------------------------------
 void EditorApp::SaveSettings()
@@ -174,5 +257,10 @@ void EditorApp::SaveSettings()
 void EditorApp::LoadSettings()
 {
 	// TODO:
+}
+//-----------------------------------------------------------------------------
+EditorApp* GetApp()
+{
+	return gEditorApp;
 }
 //-----------------------------------------------------------------------------

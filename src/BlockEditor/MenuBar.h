@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Settings.h"
+#include "Dialog.h"
 
 class MenuBar
 {
 public:
 	MenuBar(Settings& settings);
-	void Update();
+	void Update(float deltaTime);
 	void Draw();
 	void OpenSaveMapDialog();
 	void OpenOpenMapDialog();
