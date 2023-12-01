@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="GameApp.cpp" />
+    <ClCompile Include="EditorApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="..\3rdparty\imgui\imgui.cpp">
@@ -25,17 +25,26 @@
     <ClCompile Include="..\3rdparty\imgui\imgui_widgets.cpp">
       <Filter>3rdparty\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="EditorApp.cpp">
+    <ClCompile Include="RLText.cpp">
+      <Filter>Editor\LiteRaylib</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
-    <ClCompile Include="MenuBar.cpp">
-      <Filter>Editor</Filter>
+    <ClCompile Include="RLTextures.cpp">
+      <Filter>Editor\LiteRaylib</Filter>
     </ClCompile>
-    <ClCompile Include="Dialog.cpp">
-      <Filter>Editor</Filter>
+    <ClCompile Include="RLUtils.cpp">
+      <Filter>Editor\LiteRaylib</Filter>
     </ClCompile>
-    <ClCompile Include="MapMan.cpp">
-      <Filter>Editor</Filter>
+    <ClCompile Include="RLModels.cpp">
+      <Filter>Editor\LiteRaylib</Filter>
+    </ClCompile>
+    <ClCompile Include="RLShaders.cpp">
+      <Filter>Editor\LiteRaylib</Filter>
+    </ClCompile>
+    <ClCompile Include="RLCore.cpp">
+      <Filter>Editor\LiteRaylib</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>Editor</Filter>
@@ -43,7 +52,13 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
-    <ClCompile Include="Assets.cpp">
+    <ClCompile Include="MapMan.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuBar.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
     <ClCompile Include="PlaceMode.cpp">
@@ -52,16 +67,27 @@
     <ClCompile Include="PickMode.cpp">
       <Filter>Editor\Modes</Filter>
     </ClCompile>
+    <ClCompile Include="RLImage.cpp">
+      <Filter>Editor\LiteRaylib</Filter>
+    </ClCompile>
+    <ClCompile Include="ImguiUtils.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="RLModels2.cpp">
+      <Filter>Editor\LiteRaylib</Filter>
+    </ClCompile>
     <ClCompile Include="EntMode.cpp">
       <Filter>Editor\Modes</Filter>
     </ClCompile>
-    <ClCompile Include="Temp.cpp">
+    <ClCompile Include="map_man_te2.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="map_man_export.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseSceneShader.h" />
-    <ClInclude Include="GameApp.h" />
+    <ClInclude Include="EditorApp.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\3rdparty\imgui\imconfig.h">
       <Filter>3rdparty\imgui</Filter>
@@ -90,40 +116,61 @@
     <ClInclude Include="..\3rdparty\json.hpp">
       <Filter>3rdparty</Filter>
     </ClInclude>
-    <ClInclude Include="EditorApp.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="softball_gold_ttf.h">
-      <Filter>Editor\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="IMode.h">
-      <Filter>Editor\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuBar.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Settings.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Dialog.h">
-      <Filter>Editor</Filter>
+    <ClInclude Include="..\3rdparty\sinfl.h">
+      <Filter>3rdparty</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">
       <Filter>Editor</Filter>
     </ClInclude>
-    <ClInclude Include="MapMan.h">
-      <Filter>Editor</Filter>
+    <ClInclude Include="RL.h">
+      <Filter>Editor\LiteRaylib</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Editor</Filter>
+    <ClInclude Include="RLMath.h">
+      <Filter>Editor\LiteRaylib</Filter>
     </ClInclude>
     <ClInclude Include="Grid.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="map_shader.h">
+      <Filter>Editor\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite_shader.h">
+      <Filter>Editor\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdparty\par_shapes.h">
+      <Filter>3rdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="font_dejavu.h">
+      <Filter>Editor\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="softball_gold_ttf.h">
+      <Filter>Editor\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
       <Filter>Editor</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Editor</Filter>
     </ClInclude>
-    <ClInclude Include="Assets.h">
+    <ClInclude Include="MapMan.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdparty\rprand.h">
+      <Filter>3rdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeImpl.h">
+      <Filter>Editor\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBar.h">
       <Filter>Editor</Filter>
     </ClInclude>
     <ClInclude Include="PlaceMode.h">
@@ -132,17 +179,14 @@
     <ClInclude Include="PickMode.h">
       <Filter>Editor\Modes</Filter>
     </ClInclude>
-    <ClInclude Include="EntMode.h">
-      <Filter>Editor\Modes</Filter>
+    <ClInclude Include="..\3rdparty\stb_image_resize2.h">
+      <Filter>3rdparty</Filter>
     </ClInclude>
-    <ClInclude Include="Temp.h">
+    <ClInclude Include="ImguiUtils.h">
       <Filter>Editor</Filter>
     </ClInclude>
-    <ClInclude Include="font_dejavu.h">
-      <Filter>Editor\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rdparty\sinfl.h">
-      <Filter>3rdparty</Filter>
+    <ClInclude Include="EntMode.h">
+      <Filter>Editor\Modes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -155,11 +199,17 @@
     <Filter Include="3rdparty\imgui">
       <UniqueIdentifier>{a5954f0e-21e9-470c-b46e-b725ca1b04d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Editor\assets">
-      <UniqueIdentifier>{243b743e-5669-4552-b23d-5a45f5b56f73}</UniqueIdentifier>
+    <Filter Include="Editor\LiteRaylib">
+      <UniqueIdentifier>{b70c409a-e6ab-4c0a-9c72-b0b91b02bb02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\shaders">
+      <UniqueIdentifier>{3b8d78bb-0557-480f-9f35-6d2156455add}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\fonts">
+      <UniqueIdentifier>{324f79a9-237d-4f8b-82ee-7755e0c77528}</UniqueIdentifier>
     </Filter>
     <Filter Include="Editor\Modes">
-      <UniqueIdentifier>{eb84d1f1-9dde-4be9-a470-cc17e0846d4a}</UniqueIdentifier>
+      <UniqueIdentifier>{67374c7a-543a-4ec6-92ed-db3bdef6e9d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

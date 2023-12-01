@@ -1,6 +1,8 @@
 #pragma once
 
-// Represents a 3 dimensional array of tiles and provides functions for converting coordinates.
+#include "Core.h"
+
+//Represents a 3 dimensional array of tiles and provides functions for converting coordinates.
 template<class Cel>
 class Grid
 {
@@ -21,35 +23,37 @@ public:
 	}
 
 	//Constructs a blank grid of zero size.
-	inline Grid() : Grid(0, 0, 0, 0.0f)
+	inline Grid()
+		: Grid(0, 0, 0, 0.0f)
 	{
 	}
+
 	virtual ~Grid() {};
 
-	inline glm::vec3 WorldToGridPos(const glm::vec3& worldPos) const
+	inline Vector3 WorldToGridPos(Vector3 worldPos) const
 	{
-		return { floorf(worldPos.x / _spacing), floorf(worldPos.y / _spacing) , floorf(worldPos.z / _spacing) };
+		return Vector3{ floorf(worldPos.x / _spacing), floorf(worldPos.y / _spacing) , floorf(worldPos.z / _spacing) };
 	}
 
 	//Converts (whole number) grid cel coordinates to world coordinates.
 	//If `center` is true, then the world coordinate will be in the center of the cel instead of the corner.
-	inline glm::vec3 GridToWorldPos(const glm::vec3& gridPos, bool center) const
+	inline Vector3 GridToWorldPos(Vector3 gridPos, bool center) const
 	{
 		if (center)
 		{
-			return {
-				(gridPos.x * _spacing) + (_spacing / 2.0f),
-				(gridPos.y * _spacing) + (_spacing / 2.0f),
-				(gridPos.z * _spacing) + (_spacing / 2.0f),
+			return Vector3{
+			(gridPos.x * _spacing) + (_spacing / 2.0f),
+			(gridPos.y * _spacing) + (_spacing / 2.0f),
+			(gridPos.z * _spacing) + (_spacing / 2.0f),
 			};
 		}
 		else
 		{
-			return { gridPos.x * _spacing, gridPos.y * _spacing, gridPos.z * _spacing };
+			return Vector3{ gridPos.x * _spacing, gridPos.y * _spacing, gridPos.z * _spacing };
 		}
 	}
 
-	inline glm::vec3 SnapToCelCenter(glm::vec3 worldPos) const
+	inline Vector3 SnapToCelCenter(Vector3 worldPos) const
 	{
 		worldPos.x = (floorf(worldPos.x / _spacing) * _spacing) + (_spacing / 2.0f);
 		worldPos.y = (floorf(worldPos.y / _spacing) * _spacing) + (_spacing / 2.0f);
@@ -62,12 +66,12 @@ public:
 		return i + (k * _width) + (j * _width * _length);
 	}
 
-	inline glm::vec3 UnflattenIndex(size_t idx) const
+	inline Vector3 UnflattenIndex(size_t idx) const
 	{
-		return {
-			(float)(idx % _width),
-			(float)(idx / (_width * _length)),
-			(float)((idx / _width) % _length)
+		return Vector3{
+		(float)(idx % _width),
+		(float)(idx / (_width * _length)),
+		(float)((idx / _width) % _length)
 		};
 	}
 
@@ -76,19 +80,19 @@ public:
 	inline size_t GetLength() const { return _length; }
 	inline float GetSpacing() const { return _spacing; }
 
-	inline glm::vec3 GetMinCorner() const
+	inline Vector3 GetMinCorner() const
 	{
-		return glm::vec3(0.0f);
+		return Vector3Zero();
 	}
 
-	inline glm::vec3 GetMaxCorner() const
+	inline Vector3 GetMaxCorner() const
 	{
-		return { (float)_width * _spacing, (float)_height * _spacing, (float)_length * _spacing };
+		return Vector3{ (float)_width * _spacing, (float)_height * _spacing, (float)_length * _spacing };
 	}
 
-	inline glm::vec3 GetCenterPos() const
+	inline Vector3 GetCenterPos() const
 	{
-		return { (float)_width * _spacing / 2.0f, (float)_height * _spacing / 2.0f, (float)_length * _spacing / 2.0f };
+		return Vector3{ (float)_width * _spacing / 2.0f, (float)_height * _spacing / 2.0f, (float)_length * _spacing / 2.0f };
 	}
 
 protected:
@@ -105,9 +109,9 @@ protected:
 	inline void CopyCels(int i, int j, int k, const Grid<Cel>& src)
 	{
 		assert(i >= 0 && j >= 0 && k >= 0);
-		int xEnd = glm::min(i + src._width, _width);
-		int yEnd = glm::min(j + src._height, _height);
-		int zEnd = glm::min(k + src._length, _length);
+		int xEnd = Min(i + src._width, _width);
+		int yEnd = Min(j + src._height, _height);
+		int zEnd = Min(k + src._length, _length);
 		for (int z = k; z < zEnd; ++z)
 		{
 			for (int y = j; y < yEnd; ++y)

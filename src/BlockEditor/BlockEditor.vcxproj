@@ -124,21 +124,30 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Assets.cpp" />
-    <ClCompile Include="Dialog.cpp" />
+    <ClCompile Include="Dialogs.cpp" />
     <ClCompile Include="EditorApp.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntMode.cpp" />
-    <ClCompile Include="GameApp.cpp" />
+    <ClCompile Include="ImguiUtils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapMan.cpp" />
+    <ClCompile Include="map_man_export.cpp" />
+    <ClCompile Include="map_man_te2.cpp" />
     <ClCompile Include="MenuBar.cpp" />
     <ClCompile Include="PickMode.cpp" />
     <ClCompile Include="PlaceMode.cpp" />
+    <ClCompile Include="RLCore.cpp" />
+    <ClCompile Include="RLImage.cpp" />
+    <ClCompile Include="RLModels.cpp" />
+    <ClCompile Include="RLModels2.cpp" />
+    <ClCompile Include="RLShaders.cpp" />
+    <ClCompile Include="RLText.cpp" />
+    <ClCompile Include="RLTextures.cpp" />
+    <ClCompile Include="RLUtils.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Temp.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,26 +160,31 @@
     <ClInclude Include="..\3rdparty\imgui\imstb_textedit.h" />
     <ClInclude Include="..\3rdparty\imgui\imstb_truetype.h" />
     <ClInclude Include="..\3rdparty\json.hpp" />
+    <ClInclude Include="..\3rdparty\par_shapes.h" />
+    <ClInclude Include="..\3rdparty\rprand.h" />
     <ClInclude Include="..\3rdparty\sinfl.h" />
+    <ClInclude Include="..\3rdparty\stb_image_resize2.h" />
     <ClInclude Include="Assets.h" />
-    <ClInclude Include="BaseSceneShader.h" />
     <ClInclude Include="Core.h" />
-    <ClInclude Include="Dialog.h" />
+    <ClInclude Include="Dialogs.h" />
     <ClInclude Include="EditorApp.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntMode.h" />
     <ClInclude Include="font_dejavu.h" />
-    <ClInclude Include="GameApp.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="IMode.h" />
+    <ClInclude Include="ImguiUtils.h" />
     <ClInclude Include="MapMan.h" />
+    <ClInclude Include="map_shader.h" />
     <ClInclude Include="MenuBar.h" />
+    <ClInclude Include="ModeImpl.h" />
     <ClInclude Include="PickMode.h" />
     <ClInclude Include="PlaceMode.h" />
+    <ClInclude Include="RL.h" />
+    <ClInclude Include="RLMath.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="softball_gold_ttf.h" />
+    <ClInclude Include="sprite_shader.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Temp.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

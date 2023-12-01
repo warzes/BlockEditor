@@ -2,6 +2,8 @@
 
 //#define NOT_USE_LEFT_HANDED_MATH
 
+#define _CRT_SECURE_NO_WARNINGS // TODO: delete
+
 #if defined(_MSC_VER) // TODO: почистить
 #	pragma warning(disable : 4365) // проверить
 #	pragma warning(disable : 4514) // C4: 'function' : unreferenced inline function has been removed

@@ -1,25 +1,25 @@
 #pragma once
 
 #include "Settings.h"
-#include "Dialog.h"
+#include "Dialogs.h"
 
 class MenuBar
 {
 public:
-	MenuBar(Settings& settings);
-	void Update(float deltaTime);
-	void Draw();
-	void OpenSaveMapDialog();
-	void OpenOpenMapDialog();
-	void SaveMap();
+    MenuBar(Settings& settings);
+    void Update(float deltaTime);
+    void Draw();
+    void OpenSaveMapDialog();
+    void OpenOpenMapDialog();
+    void SaveMap();
 
-	void DisplayStatusMessage(std::string message, float durationSeconds, int priority);
+    void DisplayStatusMessage(std::string message, float durationSeconds, int priority);
 protected:
-	Settings& _settings;
+    Settings& _settings;
 
-	std::unique_ptr<Dialog> _activeDialog;
+    std::unique_ptr<Dialog> _activeDialog;
 
-	std::string _statusMessage;
-	float _messageTimer;
-	int _messagePriority;
+    std::string _statusMessage;
+    float _messageTimer;
+    int _messagePriority;
 };
