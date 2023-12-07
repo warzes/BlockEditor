@@ -26,64 +26,97 @@
       <Filter>3rdparty\imgui</Filter>
     </ClCompile>
     <ClCompile Include="RLText.cpp">
-      <Filter>Editor\LiteRaylib</Filter>
-    </ClCompile>
-    <ClCompile Include="Assets.cpp">
-      <Filter>Editor</Filter>
+      <Filter>Editor\old\LiteRaylib</Filter>
     </ClCompile>
     <ClCompile Include="RLTextures.cpp">
-      <Filter>Editor\LiteRaylib</Filter>
+      <Filter>Editor\old\LiteRaylib</Filter>
     </ClCompile>
     <ClCompile Include="RLUtils.cpp">
-      <Filter>Editor\LiteRaylib</Filter>
+      <Filter>Editor\old\LiteRaylib</Filter>
     </ClCompile>
     <ClCompile Include="RLModels.cpp">
-      <Filter>Editor\LiteRaylib</Filter>
+      <Filter>Editor\old\LiteRaylib</Filter>
     </ClCompile>
     <ClCompile Include="RLShaders.cpp">
-      <Filter>Editor\LiteRaylib</Filter>
+      <Filter>Editor\old\LiteRaylib</Filter>
     </ClCompile>
     <ClCompile Include="RLCore.cpp">
-      <Filter>Editor\LiteRaylib</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="MapMan.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Dialogs.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuBar.cpp">
-      <Filter>Editor</Filter>
+      <Filter>Editor\old\LiteRaylib</Filter>
     </ClCompile>
     <ClCompile Include="PlaceMode.cpp">
-      <Filter>Editor\Modes</Filter>
+      <Filter>Editor\old\Modes</Filter>
     </ClCompile>
     <ClCompile Include="PickMode.cpp">
-      <Filter>Editor\Modes</Filter>
+      <Filter>Editor\old\Modes</Filter>
     </ClCompile>
     <ClCompile Include="RLImage.cpp">
-      <Filter>Editor\LiteRaylib</Filter>
-    </ClCompile>
-    <ClCompile Include="ImguiUtils.cpp">
-      <Filter>Editor</Filter>
+      <Filter>Editor\old\LiteRaylib</Filter>
     </ClCompile>
     <ClCompile Include="RLModels2.cpp">
-      <Filter>Editor\LiteRaylib</Filter>
+      <Filter>Editor\old\LiteRaylib</Filter>
     </ClCompile>
     <ClCompile Include="EntMode.cpp">
-      <Filter>Editor\Modes</Filter>
+      <Filter>Editor\old\Modes</Filter>
     </ClCompile>
-    <ClCompile Include="map_man_te2.cpp">
-      <Filter>Editor</Filter>
+    <ClCompile Include="Assets.cpp">
+      <Filter>Editor\old</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Editor\old</Filter>
+    </ClCompile>
+    <ClCompile Include="ImguiUtils.cpp">
+      <Filter>Editor\old</Filter>
     </ClCompile>
     <ClCompile Include="map_man_export.cpp">
-      <Filter>Editor</Filter>
+      <Filter>Editor\old</Filter>
+    </ClCompile>
+    <ClCompile Include="map_man_te2.cpp">
+      <Filter>Editor\old</Filter>
+    </ClCompile>
+    <ClCompile Include="MapMan.cpp">
+      <Filter>Editor\old</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuBar.cpp">
+      <Filter>Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="NewMapDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="ExpandMapDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="ShrinkMapDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="FileDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="CloseDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetPathDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="AboutDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="ShortcutsDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="InstructionsDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportDialog.cpp">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="TileGrid.cpp">
+      <Filter>Editor\old</Filter>
+    </ClCompile>
+    <ClCompile Include="MapMan_Action.cpp">
+      <Filter>Editor\old</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,74 +152,119 @@
     <ClInclude Include="..\3rdparty\sinfl.h">
       <Filter>3rdparty</Filter>
     </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
     <ClInclude Include="RL.h">
-      <Filter>Editor\LiteRaylib</Filter>
+      <Filter>Editor\old\LiteRaylib</Filter>
     </ClInclude>
     <ClInclude Include="RLMath.h">
-      <Filter>Editor\LiteRaylib</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Assets.h">
-      <Filter>Editor</Filter>
+      <Filter>Editor\old\LiteRaylib</Filter>
     </ClInclude>
     <ClInclude Include="map_shader.h">
-      <Filter>Editor\shaders</Filter>
+      <Filter>Editor\old\shaders</Filter>
     </ClInclude>
     <ClInclude Include="sprite_shader.h">
-      <Filter>Editor\shaders</Filter>
+      <Filter>Editor\old\shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdparty\par_shapes.h">
       <Filter>3rdparty</Filter>
     </ClInclude>
     <ClInclude Include="font_dejavu.h">
-      <Filter>Editor\fonts</Filter>
+      <Filter>Editor\old\fonts</Filter>
     </ClInclude>
     <ClInclude Include="softball_gold_ttf.h">
-      <Filter>Editor\fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="MapMan.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Dialogs.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Settings.h">
-      <Filter>Editor</Filter>
+      <Filter>Editor\old\fonts</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdparty\rprand.h">
       <Filter>3rdparty</Filter>
     </ClInclude>
-    <ClInclude Include="ModeImpl.h">
-      <Filter>Editor\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuBar.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
     <ClInclude Include="PlaceMode.h">
-      <Filter>Editor\Modes</Filter>
+      <Filter>Editor\old\Modes</Filter>
     </ClInclude>
     <ClInclude Include="PickMode.h">
-      <Filter>Editor\Modes</Filter>
+      <Filter>Editor\old\Modes</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdparty\stb_image_resize2.h">
       <Filter>3rdparty</Filter>
     </ClInclude>
+    <ClInclude Include="EntMode.h">
+      <Filter>Editor\old\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="IconsFontAwesome6.h">
+      <Filter>Editor\old\LiteRaylib\extras</Filter>
+    </ClInclude>
+    <ClInclude Include="FA6FreeSolidFontData.h">
+      <Filter>Editor\old\LiteRaylib\extras</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Editor\old</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>Editor\old</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Editor\old</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Editor\old</Filter>
+    </ClInclude>
     <ClInclude Include="ImguiUtils.h">
+      <Filter>Editor\old</Filter>
+    </ClInclude>
+    <ClInclude Include="MapMan.h">
+      <Filter>Editor\old</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
       <Filter>Editor</Filter>
     </ClInclude>
-    <ClInclude Include="EntMode.h">
+    <ClInclude Include="MenuBar.h">
+      <Filter>Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs.h">
+      <Filter>Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="NewMapDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpandMapDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="ShrinkMapDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="FileDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="CloseDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetPathDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="AboutDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="ShortcutsDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="InstructionsDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportDialog.h">
+      <Filter>Editor\GUI\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="IMode.h">
       <Filter>Editor\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="TileGrid.h">
+      <Filter>Editor\old</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -199,17 +277,32 @@
     <Filter Include="3rdparty\imgui">
       <UniqueIdentifier>{a5954f0e-21e9-470c-b46e-b725ca1b04d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Editor\LiteRaylib">
-      <UniqueIdentifier>{b70c409a-e6ab-4c0a-9c72-b0b91b02bb02}</UniqueIdentifier>
+    <Filter Include="Editor\GUI">
+      <UniqueIdentifier>{7737b3d3-a4d9-4c43-b671-115c02a7c6cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Editor\shaders">
+    <Filter Include="Editor\old">
+      <UniqueIdentifier>{97e6470f-14ce-4acf-9547-b389174336a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\old\shaders">
       <UniqueIdentifier>{3b8d78bb-0557-480f-9f35-6d2156455add}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Editor\fonts">
+    <Filter Include="Editor\old\Modes">
+      <UniqueIdentifier>{67374c7a-543a-4ec6-92ed-db3bdef6e9d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\old\LiteRaylib">
+      <UniqueIdentifier>{b70c409a-e6ab-4c0a-9c72-b0b91b02bb02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\old\LiteRaylib\extras">
+      <UniqueIdentifier>{c7eca008-a38c-4904-811a-339ce14a54f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\old\fonts">
       <UniqueIdentifier>{324f79a9-237d-4f8b-82ee-7755e0c77528}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Editor\GUI\Dialogs">
+      <UniqueIdentifier>{73acc577-5369-4d2d-bced-b9904d119d8d}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Editor\Modes">
-      <UniqueIdentifier>{67374c7a-543a-4ec6-92ed-db3bdef6e9d8}</UniqueIdentifier>
+      <UniqueIdentifier>{8ce72e8c-7183-4fd7-9321-3958fb2964e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

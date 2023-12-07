@@ -3,6 +3,7 @@
 #include "RLMath.h"
 #include "EditorApp.h"
 #include "ImguiUtils.h"
+#include "Core.h"
 
 #define FRAME_SIZE 196
 #define ICON_SIZE 64

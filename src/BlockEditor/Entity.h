@@ -17,7 +17,7 @@ struct Ent
     bool active;
 
     DisplayMode display;
-    RLColor color;
+    Color color;
     float radius;
     Vector3 position; //World space coordinates
     int yaw, pitch; //Degrees angle orientation
@@ -54,39 +54,39 @@ public:
     inline void AddEnt(int i, int j, int k, Ent ent)
     {
         ent.position = GridToWorldPos(Vector3{ (float)i, (float)j, (float)k }, true);
-        SetCel(i, j, k, ent);
+        setCel(i, j, k, ent);
     }
 
     inline void RemoveEnt(int i, int j, int k)
     {
-        SetCel(i, j, k, Ent());
+        setCel(i, j, k, Ent());
     }
 
     inline bool HasEnt(int i, int j, int k) const
     {
-        return GetCel(i, j, k).active;
+        return getCel(i, j, k).active;
     }
 
     inline Ent GetEnt(int i, int j, int k) const
     {
         assert(HasEnt(i, j, k));
-        return GetCel(i, j, k);
+        return getCel(i, j, k);
     }
 
     inline void CopyEnts(int i, int j, int k, const EntGrid& src)
     {
-        return CopyCels(i, j, k, src);
+        return copyCels(i, j, k, src);
     }
 
     //Returns a smaller grid with a copy of the ent data in the rectangle defined by coordinates (i, j, k) and size (w, h, l).
     inline EntGrid Subsection(int i, int j, int k, int w, int h, int l) const
     {
         assert(i >= 0 && j >= 0 && k >= 0);
-        assert(i + w <= int(_width) && j + h <= int(_height) && k + l <= int(_length));
+        assert(i + w <= int(m_width) && j + h <= int(m_height) && k + l <= int(m_length));
 
         EntGrid newGrid(w, h, l);
 
-        SubsectionCopy(i, j, k, w, h, l, newGrid);
+        subsectionCopy(i, j, k, w, h, l, newGrid);
 
         return newGrid;
     }
@@ -95,7 +95,7 @@ public:
     inline std::vector<Ent> GetEntList() const
     {
         std::vector<Ent> out;
-        for (const Ent& ent : _grid)
+        for (const Ent& ent : m_grid)
         {
             if (ent.active) out.push_back(ent);
         }

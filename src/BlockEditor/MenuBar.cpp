@@ -1,129 +1,140 @@
 #include "stdafx.h"
 #include "MenuBar.h"
 #include "EditorApp.h"
-#include "ModeImpl.h"
-
+#include "IMode.h"
+#include "FileDialog.h"
+#include "NewMapDialog.h"
+#include "ExportDialog.h"
+#include "ExpandMapDialog.h"
+#include "ShrinkMapDialog.h"
+#include "AssetPathDialog.h"
+#include "SettingsDialog.h"
+#include "AboutDialog.h"
+#include "ShortcutsDialog.h"
+#include "InstructionsDialog.h"
+//-----------------------------------------------------------------------------
 MenuBar::MenuBar(Settings& settings)
-    : _settings(settings),
-    _activeDialog(nullptr),
-    _messageTimer(0.0f),
-    _messagePriority(0)
+	: m_settings(settings)
+	, m_activeDialog(nullptr)
+	, m_messageTimer(0.0f)
+	, m_messagePriority(0)
 {
 }
-
+//-----------------------------------------------------------------------------
 void MenuBar::DisplayStatusMessage(std::string message, float durationSeconds, int priority)
 {
-    if (priority >= _messagePriority)
-    {
-        _statusMessage = message;
-        _messageTimer = durationSeconds;
-        _messagePriority = priority;
-    }
+	if (priority >= m_messagePriority)
+	{
+		m_statusMessage = message;
+		m_messageTimer = durationSeconds;
+		m_messagePriority = priority;
+	}
 }
-
+//-----------------------------------------------------------------------------
 void MenuBar::OpenOpenMapDialog()
 {
-    auto callback = [](std::filesystem::path path)
-        {
-            GetApp()->TryOpenMap(path);
-        };
-    _activeDialog.reset(new FileDialog("Open Map (*.te3, *.ti)", { ".te3", ".ti" }, callback, false));
+	auto callback = [](std::filesystem::path path)
+		{
+			GetApp()->TryOpenMap(path);
+		};
+	m_activeDialog.reset(new FileDialog("Open Map (*.te3)", { ".te3" }, callback, false));
 }
-
+//-----------------------------------------------------------------------------
 void MenuBar::OpenSaveMapDialog()
 {
-    auto callback = [](std::filesystem::path path)
-        {
-            GetApp()->TrySaveMap(path);
-        };
-    _activeDialog.reset(new FileDialog("Save Map (*.te3)", { ".te3" }, callback, true));
+	auto callback = [](std::filesystem::path path)
+		{
+			GetApp()->TrySaveMap(path);
+		};
+	m_activeDialog.reset(new FileDialog("Save Map (*.te3)", { ".te3" }, callback, true));
 }
-
+//-----------------------------------------------------------------------------
 void MenuBar::SaveMap()
 {
-    if (!GetApp()->GetLastSavedPath().empty())
-    {
-        GetApp()->TrySaveMap(GetApp()->GetLastSavedPath());
-    }
-    else
-    {
-        OpenSaveMapDialog();
-    }
+	if (!GetApp()->GetLastSavedPath().empty())
+	{
+		GetApp()->TrySaveMap(GetApp()->GetLastSavedPath());
+	}
+	else
+	{
+		OpenSaveMapDialog();
+	}
 }
-
+//-----------------------------------------------------------------------------
 void MenuBar::Update(float deltaTime)
 {
-    if (_messageTimer > 0.0f)
-    {
-        _messageTimer -= deltaTime;
-        if (_messageTimer <= 0.0f)
-        {
-            _messageTimer = 0.0f;
-            _messagePriority = 0;
-        }
-    }
+	if (m_messageTimer > 0.0f)
+	{
+		m_messageTimer -= deltaTime;
+		if (m_messageTimer <= 0.0f)
+		{
+			m_messageTimer = 0.0f;
+			m_messagePriority = 0;
+		}
+	}
 
-    //Show exit confirmation dialog
-    // TODO: диалог при закрытии приложения
-    //if (WindowShouldClose())
-    //{
-    //    _activeDialog.reset(new CloseDialog());
-    //}
+	//Show exit confirmation dialog
+	// TODO: диалог при закрытии приложения
+	//if (WindowShouldClose())
+	//{
+	//    m_activeDialog.reset(new CloseDialog());
+	//}
 }
-
+//-----------------------------------------------------------------------------
 void MenuBar::Draw()
 {
-    if (ImGui::BeginMainMenuBar())
-    {
-        if (ImGui::BeginMenu("MAP"))
-        {
-            if (ImGui::MenuItem("NEW")) _activeDialog.reset(new NewMapDialog());
-            if (ImGui::MenuItem("OPEN")) OpenOpenMapDialog();
-            if (ImGui::MenuItem("SAVE")) SaveMap();
-            if (ImGui::MenuItem("SAVE AS")) OpenSaveMapDialog();
-            if (ImGui::MenuItem("EXPORT")) _activeDialog.reset(new ExportDialog(_settings));
-            if (ImGui::MenuItem("EXPAND GRID")) _activeDialog.reset(new ExpandMapDialog());
-            if (ImGui::MenuItem("SHRINK GRID")) _activeDialog.reset(new ShrinkMapDialog());
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("VIEW"))
-        {
-            if (ImGui::MenuItem("MAP EDITOR"))     GetApp()->ChangeEditorMode(Mode::PLACE_TILE);
-            if (ImGui::MenuItem("TEXTURE PICKER")) GetApp()->ChangeEditorMode(Mode::PICK_TEXTURE);
-            if (ImGui::MenuItem("SHAPE PICKER"))   GetApp()->ChangeEditorMode(Mode::PICK_SHAPE);
-            if (ImGui::MenuItem("ENTITY EDITOR"))  GetApp()->ChangeEditorMode(Mode::EDIT_ENT);
-            if (ImGui::MenuItem("RESET CAMERA"))   GetApp()->ResetEditorCamera();
-            if (ImGui::MenuItem("TOGGLE PREVIEW")) GetApp()->TogglePreviewing();
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("CONFIG"))
-        {
-            if (ImGui::MenuItem("ASSET PATHS")) _activeDialog.reset(new AssetPathDialog(_settings));
-            if (ImGui::MenuItem("SETTINGS"))    _activeDialog.reset(new SettingsDialog(_settings));
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("INFO"))
-        {
-            if (ImGui::MenuItem("ABOUT"))          _activeDialog.reset(new AboutDialog());
-            if (ImGui::MenuItem("KEYS/SHORTCUTS")) _activeDialog.reset(new ShortcutsDialog());
-            if (ImGui::MenuItem("INSTRUCTIONS"))   _activeDialog.reset(new InstructionsDialog());
-            ImGui::EndMenu();
-        }
+	if (ImGui::BeginMainMenuBar())
+	{
+		if (ImGui::BeginMenu("MAP"))
+		{
+			if (ImGui::MenuItem("NEW")) m_activeDialog.reset(new NewMapDialog());
+			if (ImGui::MenuItem("OPEN")) OpenOpenMapDialog();
+			if (ImGui::MenuItem("SAVE")) SaveMap();
+			if (ImGui::MenuItem("SAVE AS")) OpenSaveMapDialog();
+			if (ImGui::MenuItem("EXPORT")) m_activeDialog.reset(new ExportDialog(m_settings));
+			if (ImGui::MenuItem("EXPAND GRID")) m_activeDialog.reset(new ExpandMapDialog());
+			if (ImGui::MenuItem("SHRINK GRID")) m_activeDialog.reset(new ShrinkMapDialog());
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("VIEW"))
+		{
+			if (ImGui::MenuItem("MAP EDITOR"))     GetApp()->ChangeEditorMode(Mode::PLACE_TILE);
+			if (ImGui::MenuItem("TEXTURE PICKER")) GetApp()->ChangeEditorMode(Mode::PICK_TEXTURE);
+			if (ImGui::MenuItem("SHAPE PICKER"))   GetApp()->ChangeEditorMode(Mode::PICK_SHAPE);
+			if (ImGui::MenuItem("ENTITY EDITOR"))  GetApp()->ChangeEditorMode(Mode::EDIT_ENT);
+			if (ImGui::MenuItem("RESET CAMERA"))   GetApp()->ResetEditorCamera();
+			if (ImGui::MenuItem("TOGGLE PREVIEW")) GetApp()->TogglePreviewing();
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("CONFIG"))
+		{
+			if (ImGui::MenuItem("ASSET PATHS")) m_activeDialog.reset(new AssetPathDialog(m_settings));
+			if (ImGui::MenuItem("SETTINGS"))    m_activeDialog.reset(new SettingsDialog(m_settings));
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("INFO"))
+		{
+			if (ImGui::MenuItem("ABOUT"))          m_activeDialog.reset(new AboutDialog());
+			if (ImGui::MenuItem("KEYS/SHORTCUTS")) m_activeDialog.reset(new ShortcutsDialog());
+			if (ImGui::MenuItem("INSTRUCTIONS"))   m_activeDialog.reset(new InstructionsDialog());
+			ImGui::EndMenu();
+		}
 
-        ImGui::SameLine();
-        ImGui::TextUnformatted(" | ");
-        if (_messageTimer > 0.0f)
-        {
-            ImGui::SameLine();
-            ImGui::TextUnformatted(_statusMessage.c_str());
-        }
+		ImGui::SameLine();
+		ImGui::TextUnformatted(" | ");
+		if (m_messageTimer > 0.0f)
+		{
+			ImGui::SameLine();
+			ImGui::TextUnformatted(m_statusMessage.c_str());
+		}
 
-        ImGui::EndMainMenuBar();
-    }
+		ImGui::EndMainMenuBar();
+	}
 
-    //Draw modal dialogs
-    if (_activeDialog.get())
-    {
-        if (!_activeDialog->Draw()) _activeDialog.reset(nullptr);
-    }
+	//Draw modal dialogs
+	if (m_activeDialog.get())
+	{
+		if (!m_activeDialog->Draw()) m_activeDialog.reset(nullptr);
+	}
 }
+//-----------------------------------------------------------------------------

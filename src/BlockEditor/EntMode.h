@@ -1,11 +1,12 @@
 #pragma once
 
-#include "ModeImpl.h"
-#include "Dialogs.h"
+#include "IMode.h"
+#include "FileDialog.h"
+#include "Entity.h"
 
 #define TEXT_FIELD_MAX 512
 
-class EntMode : public ModeImpl
+class EntMode : public IMode
 {
 public:
     EntMode();

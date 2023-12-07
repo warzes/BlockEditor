@@ -2,9 +2,9 @@
 
 #include "RL.h"
 
-//A repository that caches all loaded resources and their file paths.
-//It is implemented as a singleton with a static interface. 
-//(This circumvents certain limitations regarding static members and allows the constructor to be called automatically when the first method is called.)
+// A repository that caches all loaded resources and their file paths.
+// It is implemented as a singleton with a static interface. 
+// (This circumvents certain limitations regarding static members and allows the constructor to be called automatically when the first method is called.)
 class Assets
 {
 public:

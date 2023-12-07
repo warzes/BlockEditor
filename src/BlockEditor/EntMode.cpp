@@ -86,15 +86,15 @@ void EntMode::Draw()
 
         ImGui::PopStyleVar(1);
 
-        // RLColor picker
+        // Color picker
         float entColorf[3] = { _ent.color.r / 255.0f, _ent.color.g / 255.0f, _ent.color.b / 255.0f };
         ImGui::SetNextItemWidth(256.0f);
-        ImGui::ColorPicker3("RLColor", entColorf, ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_InputRGB);
-        _ent.color = RLColor{
-            (unsigned char)(entColorf[0] * 255.0f),
-            (unsigned char)(entColorf[1] * 255.0f),
-            (unsigned char)(entColorf[2] * 255.0f),
-            255
+        ImGui::ColorPicker3("Color", entColorf, ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_InputRGB);
+        _ent.color = Color{
+            (uint8_t)(entColorf[0] * 255.0f),
+            (uint8_t)(entColorf[1] * 255.0f),
+            (uint8_t)(entColorf[2] * 255.0f),
+            (uint8_t)255
         };
 
         ImGui::SameLine();

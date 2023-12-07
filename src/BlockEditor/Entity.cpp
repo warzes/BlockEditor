@@ -9,7 +9,7 @@ Ent::Ent()
 {
     active = false;
     display = DisplayMode::SPHERE;
-    color = RLWHITE;
+    color = Color::White;
     radius = 0.0f;
     position = Vector3Zero();
     yaw = pitch = 0;
@@ -22,7 +22,7 @@ Ent::Ent(float radius)
 {
     active = true;
     display = DisplayMode::SPHERE;
-    color = RLWHITE;
+    color = Color::White;
     this->radius = radius;
     position = Vector3Zero();
     yaw = pitch = 0;
@@ -119,7 +119,7 @@ void from_json(const nlohmann::json& j, Ent& ent)
 {
     ent.active = true;
     ent.radius = j.at("radius");
-    ent.color = RLColor{ j.at("color").at(0), j.at("color").at(1), j.at("color").at(2), 255 };
+    ent.color = Color{ j.at("color").at(0), j.at("color").at(1), j.at("color").at(2), 255 };
     ent.position = Vector3{ j.at("position").at(0), j.at("position").at(1), j.at("position").at(2) };
     ent.pitch = j.at("angles").at(0);
     ent.yaw = j.at("angles").at(1);
@@ -150,27 +150,27 @@ EntGrid::EntGrid()
 EntGrid::EntGrid(size_t width, size_t height, size_t length)
     : Grid<Ent>(width, height, length, ENT_SPACING_DEFAULT, Ent())
 {
-    _labelsToDraw.reserve(_grid.size());
+    _labelsToDraw.reserve(m_grid.size());
 }
 
 void EntGrid::Draw(Camera3D& camera, int fromY, int toY)
 {
     _labelsToDraw.clear();
 
-    for (size_t i = fromY * _width * _length; i < (toY + 1) * _width * _length; ++i)
+    for (size_t i = fromY * m_width * m_length; i < (toY + 1) * m_width * m_length; ++i)
     {
-        if (!_grid[i].active) continue;
+        if (!m_grid[i].active) continue;
 
         //Do frustrum culling check
-        Vector3 ndc = GetWorldToNDC(_grid[i].position, camera);
+        Vector3 ndc = GetWorldToNDC(m_grid[i].position, camera);
         if (ndc.z < 1.0f && ndc.x > -1.0f && ndc.x < 1.0f && ndc.y > -1.0f && ndc.y < 1.0f)
         {
             bool drawExtras = (ndc.z < DISPLAY_NAME_THRESHOLD);
 
-            if (drawExtras && _grid[i].properties.find("name") != _grid[i].properties.end())
-                _labelsToDraw.push_back(std::make_pair(ndc, _grid[i].properties["name"]));
+            if (drawExtras && m_grid[i].properties.find("name") != m_grid[i].properties.end())
+                _labelsToDraw.push_back(std::make_pair(ndc, m_grid[i].properties["name"]));
 
-            _grid[i].Draw(drawExtras && !GetApp()->IsPreviewing());
+            m_grid[i].Draw(drawExtras && !GetApp()->IsPreviewing());
         }
     }
 }

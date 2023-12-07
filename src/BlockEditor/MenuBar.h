@@ -3,23 +3,23 @@
 #include "Settings.h"
 #include "Dialogs.h"
 
-class MenuBar
+class MenuBar final
 {
 public:
-    MenuBar(Settings& settings);
-    void Update(float deltaTime);
-    void Draw();
-    void OpenSaveMapDialog();
-    void OpenOpenMapDialog();
-    void SaveMap();
+	MenuBar(Settings& settings);
+	void Update(float deltaTime);
+	void Draw();
+	void OpenSaveMapDialog();
+	void OpenOpenMapDialog();
+	void SaveMap();
 
-    void DisplayStatusMessage(std::string message, float durationSeconds, int priority);
+	void DisplayStatusMessage(std::string message, float durationSeconds, int priority);
 protected:
-    Settings& _settings;
+	Settings& m_settings;
 
-    std::unique_ptr<Dialog> _activeDialog;
+	std::unique_ptr<Dialog> m_activeDialog;
 
-    std::string _statusMessage;
-    float _messageTimer;
-    int _messagePriority;
+	std::string m_statusMessage;
+	float m_messageTimer;
+	int m_messagePriority;
 };

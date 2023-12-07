@@ -36,18 +36,18 @@ static void ProcessMaterialsOBJ(RLMaterial* materials, tinyobj_material_t* mats,
         materials[m].maps[MATERIAL_MAP_DIFFUSE].texture = { rlGetTextureIdDefault(), 1, 1, 1, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8 };
 
         if (mats[m].diffuse_texname != NULL) materials[m].maps[MATERIAL_MAP_DIFFUSE].texture = LoadTexture(mats[m].diffuse_texname);  //char *diffuse_texname; // map_Kd
-        else materials[m].maps[MATERIAL_MAP_DIFFUSE].color = { (unsigned char)(mats[m].diffuse[0] * 255.0f), (unsigned char)(mats[m].diffuse[1] * 255.0f), (unsigned char)(mats[m].diffuse[2] * 255.0f), 255 }; //float diffuse[3];
+        else materials[m].maps[MATERIAL_MAP_DIFFUSE].color = Color{ (uint8_t)(mats[m].diffuse[0] * 255.0f), (uint8_t)(mats[m].diffuse[1] * 255.0f), (uint8_t)(mats[m].diffuse[2] * 255.0f), (uint8_t)255 }; //float diffuse[3];
         materials[m].maps[MATERIAL_MAP_DIFFUSE].value = 0.0f;
 
         if (mats[m].specular_texname != NULL) materials[m].maps[MATERIAL_MAP_SPECULAR].texture = LoadTexture(mats[m].specular_texname);  //char *specular_texname; // map_Ks
-        materials[m].maps[MATERIAL_MAP_SPECULAR].color = { (unsigned char)(mats[m].specular[0] * 255.0f), (unsigned char)(mats[m].specular[1] * 255.0f), (unsigned char)(mats[m].specular[2] * 255.0f), 255 }; //float specular[3];
+        materials[m].maps[MATERIAL_MAP_SPECULAR].color = Color{ (uint8_t)(mats[m].specular[0] * 255.0f), (uint8_t)(mats[m].specular[1] * 255.0f), (uint8_t)(mats[m].specular[2] * 255.0f), (uint8_t)255 }; //float specular[3];
         materials[m].maps[MATERIAL_MAP_SPECULAR].value = 0.0f;
 
         if (mats[m].bump_texname != NULL) materials[m].maps[MATERIAL_MAP_NORMAL].texture = LoadTexture(mats[m].bump_texname);  //char *bump_texname; // map_bump, bump
-        materials[m].maps[MATERIAL_MAP_NORMAL].color = RLWHITE;
+        materials[m].maps[MATERIAL_MAP_NORMAL].color = Color::White;
         materials[m].maps[MATERIAL_MAP_NORMAL].value = mats[m].shininess;
 
-        materials[m].maps[MATERIAL_MAP_EMISSION].color = { (unsigned char)(mats[m].emission[0] * 255.0f), (unsigned char)(mats[m].emission[1] * 255.0f), (unsigned char)(mats[m].emission[2] * 255.0f), 255 }; //float emission[3];
+        materials[m].maps[MATERIAL_MAP_EMISSION].color = Color{ (uint8_t)(mats[m].emission[0] * 255.0f), (uint8_t)(mats[m].emission[1] * 255.0f), (uint8_t)(mats[m].emission[2] * 255.0f), (uint8_t)255 }; //float emission[3];
 
         if (mats[m].displacement_texname != NULL) materials[m].maps[MATERIAL_MAP_HEIGHT].texture = LoadTexture(mats[m].displacement_texname);  //char *displacement_texname; // disp
     }

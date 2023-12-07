@@ -197,8 +197,8 @@ void ImageResize(RLImage* image, int newWidth, int newHeight)
     else
     {
         // Get data as Color pixels array to work with it
-        RLColor* pixels = LoadImageColors(*image);
-        RLColor* output = (RLColor*)RL_MALLOC(newWidth * newHeight * sizeof(RLColor));
+        Color* pixels = LoadImageColors(*image);
+        Color* output = (Color*)RL_MALLOC(newWidth * newHeight * sizeof(Color));
 
         // NOTE: Color data is cast to (unsigned char *), there shouldn't been any problem...
         stbir_resize_uint8_linear((unsigned char*)pixels, image->width, image->height, 0, (unsigned char*)output, newWidth, newHeight, 0, (stbir_pixel_layout)4);
@@ -219,11 +219,11 @@ void ImageResize(RLImage* image, int newWidth, int newHeight)
 
 // Load color data from image as a Color array (RGBA - 32bit)
 // NOTE: Memory allocated should be freed using UnloadImageColors();
-RLColor* LoadImageColors(RLImage image)
+Color* LoadImageColors(RLImage image)
 {
     if ((image.width == 0) || (image.height == 0)) return NULL;
 
-    RLColor* pixels = (RLColor*)RL_MALLOC(image.width * image.height * sizeof(RLColor));
+    Color* pixels = (Color*)RL_MALLOC(image.width * image.height * sizeof(Color));
 
     if (image.format >= PIXELFORMAT_COMPRESSED_DXT1_RGB) TRACELOG(LOG_WARNING, "IMAGE: Pixel data retrieval not supported for compressed image formats");
     else
@@ -366,7 +366,7 @@ RLColor* LoadImageColors(RLImage image)
 }
 
 // Unload color data loaded with LoadImageColors()
-void UnloadImageColors(RLColor* colors)
+void UnloadImageColors(Color* colors)
 {
     RL_FREE(colors);
 }

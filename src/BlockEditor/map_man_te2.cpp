@@ -310,7 +310,7 @@ bool MapMan::LoadTE2Map(std::filesystem::path filePath)
                 ent.properties["type"] = "enemy";
                 ent.properties["enemy"] = "caco wraith";
                 ent.properties["name"] = ent.properties["enemy"];
-                // ent.color = RLColor { 41, 120, 255, 255 }; // Teal-ish
+                // ent.color = Color { 41, 120, 255, 255 }; // Teal-ish
                 ent.display = Ent::DisplayMode::SPRITE;
                 ent.texture = Assets::GetTexture("assets/textures/icons/cacowraith_icon.png");
                 break;

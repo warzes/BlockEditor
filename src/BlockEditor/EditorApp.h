@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ModeImpl.h"
+#include "IMode.h"
 #include "Tile.h"
 #include "Settings.h"
 
@@ -13,18 +13,18 @@ class MapMan;
 class EditorApp final : public IApp
 {
 public:
-    NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(
-        Settings,
-        texturesDir,
-        shapesDir,
-        undoMax,
-        mouseSensitivity,
-        exportSeparateGeometry,
-        cullFaces,
-        exportFilePath,
-        defaultTexturePath,
-        defaultShapePath,
-        backgroundColor);
+	NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(
+		Settings,
+		texturesDir,
+		shapesDir,
+		undoMax,
+		mouseSensitivity,
+		exportSeparateGeometry,
+		cullFaces,
+		exportFilePath,
+		defaultTexturePath,
+		defaultShapePath,
+		backgroundColor);
 
 	EditorApp();
 	~EditorApp();
@@ -34,64 +34,63 @@ public:
 	void Render() final;
 	void Update(float deltaTime) final;
 
-    //Handles transition and data flow from one editor state to the next.
-    void ChangeEditorMode(const Mode newMode);
+	//Handles transition and data flow from one editor state to the next.
+	void ChangeEditorMode(const Mode newMode);
 
-    inline float       GetMouseSensitivity() { return _settings.mouseSensitivity; }
-    inline size_t      GetUndoMax() { return _settings.undoMax; }
-    inline std::string GetTexturesDir() { return _settings.texturesDir; };
-    inline std::string GetShapesDir() { return _settings.shapesDir; }
-    inline std::string GetDefaultTexturePath() { return _settings.defaultTexturePath; }
-    inline std::string GetDefaultShapePath() { return _settings.defaultShapePath; }
-    inline bool        IsCullingEnabled() { return _settings.cullFaces; }
-    inline RLColor       GetBackgroundColor() { return RLColor{ _settings.backgroundColor[0], _settings.backgroundColor[1], _settings.backgroundColor[2], 255 }; }
+	float GetMouseSensitivity() { return m_settings.mouseSensitivity; }
+	size_t GetUndoMax() { return m_settings.undoMax; }
+	std::string GetTexturesDir() { return m_settings.texturesDir; };
+	std::string GetShapesDir() { return m_settings.shapesDir; }
+	std::string GetDefaultTexturePath() { return m_settings.defaultTexturePath; }
+	std::string GetDefaultShapePath() { return m_settings.defaultShapePath; }
+	bool IsCullingEnabled() { return m_settings.cullFaces; }
+	Color GetBackgroundColor() { return Color(m_settings.backgroundColor[0], m_settings.backgroundColor[1], m_settings.backgroundColor[2], (uint8_t)255); }
 
-    //Indicates if rendering should be done in "preview mode", i.e. without editor widgets being drawn.
-    inline bool IsPreviewing() const { return _previewDraw; }
-    inline void SetPreviewing(bool p) { _previewDraw = p; }
-    inline void TogglePreviewing() { _previewDraw = !_previewDraw; }
-    inline std::filesystem::path GetLastSavedPath() const { return _lastSavedPath; }
+	//Indicates if rendering should be done in "preview mode", i.e. without editor widgets being drawn.
+	bool IsPreviewing() const { return m_previewDraw; }
+	void SetPreviewing(bool previewDraw) { m_previewDraw = previewDraw; }
+	void TogglePreviewing() { m_previewDraw = !m_previewDraw; }
+	std::filesystem::path GetLastSavedPath() const { return m_lastSavedPath; }
 
-    inline bool IsQuitting() const { return _quit; }
-    inline void Quit() { _quit = true; }
+	bool IsQuitting() const { return m_quit; }
+	void Quit() { m_quit = true; }
 
-    void DisplayStatusMessage(std::string message, float durationSeconds, int priority);
+	void DisplayStatusMessage(std::string message, float durationSeconds, int priority);
 
-    //General map file operations
-    inline const MapMan& GetMapMan() const { return *_mapMan.get(); }
-    void ResetEditorCamera();
-    void NewMap(int width, int height, int length);
-    void ExpandMap(Direction axis, int amount);
-    void ShrinkMap();
-    void TryOpenMap(std::filesystem::path path);
-    void TrySaveMap(std::filesystem::path path);
-    void TryExportMap(std::filesystem::path path, bool separateGeometry);
+	//General map file operations
+	const MapMan& GetMapMan() const { return *m_mapManager.get(); }
+	void ResetEditorCamera();
+	void NewMap(int width, int height, int length);
+	void ExpandMap(Direction axis, int amount);
+	void ShrinkMap();
+	void TryOpenMap(std::filesystem::path path);
+	void TrySaveMap(std::filesystem::path path);
+	void TryExportMap(std::filesystem::path path, bool separateGeometry);
 
-    //Serializes settings into JSON file and exports.
-    void SaveSettings();
-    //Deserializes settings from JSON file
-    void LoadSettings();
+	//Serializes settings into JSON file and exports.
+	void SaveSettings();
+	//Deserializes settings from JSON file
+	void LoadSettings();
 
 private:
 	int m_windowWidth = 0;
 	int m_windowHeight = 0;
 
-    Settings _settings;
+	Settings m_settings;
 
-    std::unique_ptr<MenuBar> _menuBar;
-    std::unique_ptr<MapMan> _mapMan;
+	std::unique_ptr<MenuBar> m_menuBar;
+	std::unique_ptr<MapMan> m_mapManager;
 
-    std::unique_ptr<PlaceMode> _tilePlaceMode;
-    std::unique_ptr<PickMode> _texPickMode;
-    std::unique_ptr<PickMode> _shapePickMode;
-    std::unique_ptr<EntMode> _entMode;
+	std::unique_ptr<PlaceMode> m_tilePlaceMode;
+	std::unique_ptr<PickMode> m_texPickMode;
+	std::unique_ptr<PickMode> m_shapePickMode;
+	std::unique_ptr<EntMode> m_entMode;
 
-    ModeImpl* _editorMode;
+	IMode* m_editorMode = nullptr;
 
-    std::filesystem::path _lastSavedPath;
-    bool _previewDraw;
-
-    bool _quit;
+	std::filesystem::path m_lastSavedPath;
+	bool m_previewDraw;
+	bool m_quit;
 };
 
 EditorApp* GetApp();

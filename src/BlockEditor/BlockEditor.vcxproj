@@ -123,17 +123,25 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="AboutDialog.cpp" />
+    <ClCompile Include="AssetPathDialog.cpp" />
     <ClCompile Include="Assets.cpp" />
-    <ClCompile Include="Dialogs.cpp" />
+    <ClCompile Include="CloseDialog.cpp" />
     <ClCompile Include="EditorApp.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntMode.cpp" />
+    <ClCompile Include="ExpandMapDialog.cpp" />
+    <ClCompile Include="ExportDialog.cpp" />
+    <ClCompile Include="FileDialog.cpp" />
     <ClCompile Include="ImguiUtils.cpp" />
+    <ClCompile Include="InstructionsDialog.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapMan.cpp" />
+    <ClCompile Include="MapMan_Action.cpp" />
     <ClCompile Include="map_man_export.cpp" />
     <ClCompile Include="map_man_te2.cpp" />
     <ClCompile Include="MenuBar.cpp" />
+    <ClCompile Include="NewMapDialog.cpp" />
     <ClCompile Include="PickMode.cpp" />
     <ClCompile Include="PlaceMode.cpp" />
     <ClCompile Include="RLCore.cpp" />
@@ -144,11 +152,14 @@
     <ClCompile Include="RLText.cpp" />
     <ClCompile Include="RLTextures.cpp" />
     <ClCompile Include="RLUtils.cpp" />
+    <ClCompile Include="SettingsDialog.cpp" />
+    <ClCompile Include="ShortcutsDialog.cpp" />
+    <ClCompile Include="ShrinkMapDialog.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileGrid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\3rdparty\imgui\imconfig.h" />
@@ -164,28 +175,43 @@
     <ClInclude Include="..\3rdparty\rprand.h" />
     <ClInclude Include="..\3rdparty\sinfl.h" />
     <ClInclude Include="..\3rdparty\stb_image_resize2.h" />
+    <ClInclude Include="AboutDialog.h" />
+    <ClInclude Include="AssetPathDialog.h" />
     <ClInclude Include="Assets.h" />
+    <ClInclude Include="Base.h" />
+    <ClInclude Include="CloseDialog.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Dialogs.h" />
     <ClInclude Include="EditorApp.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntMode.h" />
+    <ClInclude Include="ExpandMapDialog.h" />
+    <ClInclude Include="ExportDialog.h" />
+    <ClInclude Include="FA6FreeSolidFontData.h" />
+    <ClInclude Include="FileDialog.h" />
     <ClInclude Include="font_dejavu.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="IconsFontAwesome6.h" />
     <ClInclude Include="ImguiUtils.h" />
+    <ClInclude Include="InstructionsDialog.h" />
     <ClInclude Include="MapMan.h" />
     <ClInclude Include="map_shader.h" />
     <ClInclude Include="MenuBar.h" />
-    <ClInclude Include="ModeImpl.h" />
+    <ClInclude Include="IMode.h" />
+    <ClInclude Include="NewMapDialog.h" />
     <ClInclude Include="PickMode.h" />
     <ClInclude Include="PlaceMode.h" />
     <ClInclude Include="RL.h" />
     <ClInclude Include="RLMath.h" />
     <ClInclude Include="Settings.h" />
+    <ClInclude Include="SettingsDialog.h" />
+    <ClInclude Include="ShortcutsDialog.h" />
+    <ClInclude Include="ShrinkMapDialog.h" />
     <ClInclude Include="softball_gold_ttf.h" />
     <ClInclude Include="sprite_shader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileGrid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -107,8 +107,8 @@ RLMaterial LoadMaterialDefault()
 	//material.maps[MATERIAL_MAP_NORMAL].texture;         // NOTE: By default, not set
 	//material.maps[MATERIAL_MAP_SPECULAR].texture;       // NOTE: By default, not set
 
-	material.maps[MATERIAL_MAP_DIFFUSE].color = RLWHITE;    // Diffuse color
-	material.maps[MATERIAL_MAP_SPECULAR].color = RLWHITE;   // Specular color
+	material.maps[MATERIAL_MAP_DIFFUSE].color = Color::White;    // Diffuse color
+	material.maps[MATERIAL_MAP_SPECULAR].color = Color::White;   // Specular color
 
 	return material;
 }
@@ -657,7 +657,7 @@ void DrawMeshInstanced(RLMesh mesh, RLMaterial material, const Matrix* transform
 }
 
 // Draw a model (with texture if set)
-void DrawModel(RLModel model, Vector3 position, float scale, RLColor tint)
+void DrawModel(RLModel model, Vector3 position, float scale, Color tint)
 {
 	Vector3 vScale = { scale, scale, scale };
 	Vector3 rotationAxis = { 0.0f, 1.0f, 0.0f };
@@ -666,7 +666,7 @@ void DrawModel(RLModel model, Vector3 position, float scale, RLColor tint)
 }
 
 // Draw a model with extended parameters
-void DrawModelEx(RLModel model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, RLColor tint)
+void DrawModelEx(RLModel model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint)
 {
 	// Calculate transformation matrix from function parameters
 	// Get transform matrix (rotation -> scale -> translation)
@@ -681,9 +681,9 @@ void DrawModelEx(RLModel model, Vector3 position, Vector3 rotationAxis, float ro
 
 	for (int i = 0; i < model.meshCount; i++)
 	{
-		RLColor color = model.materials[model.meshMaterial[i]].maps[MATERIAL_MAP_DIFFUSE].color;
+		Color color = model.materials[model.meshMaterial[i]].maps[MATERIAL_MAP_DIFFUSE].color;
 
-		RLColor colorTint = RLWHITE;
+		Color colorTint = Color::White;
 		colorTint.r = (unsigned char)((((float)color.r / 255.0f) * ((float)tint.r / 255.0f)) * 255.0f);
 		colorTint.g = (unsigned char)((((float)color.g / 255.0f) * ((float)tint.g / 255.0f)) * 255.0f);
 		colorTint.b = (unsigned char)((((float)color.b / 255.0f) * ((float)tint.b / 255.0f)) * 255.0f);

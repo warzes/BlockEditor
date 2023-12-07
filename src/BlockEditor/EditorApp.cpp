@@ -4,30 +4,20 @@
 #include "PickMode.h"
 #include "EntMode.h"
 #include "MenuBar.h"
+#include "ImguiUtils.h"
+#include "IconsFontAwesome6.h"
+#include "FA6FreeSolidFontData.h"
+#include "softball_gold_ttf.h"
+#define FONT_AWESOME_ICON_SIZE 11
 void rlLoadShaderDefault();
 void rlLoadTextureDefault();
 EditorApp* App = nullptr;
 #define SETTINGS_FILE_PATH "settings.json"
 //-----------------------------------------------------------------------------
-inline void createImgui()
+inline void loadImguiFont(ImGuiIO& io)
 {
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
-	io.IniFilename = nullptr; // не нужно хранить файл настроек
-
-	ImGui::StyleColorsDark();
-	//ImGui::StyleColorsLight();
-
-	if (!ImGui_ImplGlfw_InitForOpenGL(GetWindowSystem().GetHandle(), true))
-		return ;
-	const char* glsl_version = "#version 330";
-	if (!ImGui_ImplOpenGL3_Init(glsl_version))
-		return ;
-
 	// Load Fonts
+
 	// - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
 	// - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
 	// - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
@@ -43,10 +33,43 @@ inline void createImgui()
 	// io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
 	// ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
 	// IM_ASSERT(font != NULL);
+
+	io.Fonts->AddFontDefault();
+	static const ImWchar iconsRanges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+	ImFontConfig iconsConfig;
+	iconsConfig.MergeMode = true;
+	iconsConfig.PixelSnapH = true;
+	iconsConfig.FontDataOwnedByAtlas = false;
+	io.Fonts->AddFontFromMemoryCompressedTTF((void*)fa_solid_900_compressed_data, fa_solid_900_compressed_size, FONT_AWESOME_ICON_SIZE, &iconsConfig, iconsRanges);
+}
+//-----------------------------------------------------------------------------
+inline void createImgui()
+{
+	ImGui::CreateContext(nullptr);
+	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsLight();
+
+	ImGuiIO& io = ImGui::GetIO();
+	loadImguiFont(io);
+
+	ImFontConfig config;
+	config.FontDataOwnedByAtlas = false;
+	io.FontDefault = io.Fonts->AddFontFromMemoryTTF((void*)Softball_Gold_ttf, Softball_Gold_ttf_len, 24, &config, io.Fonts->GetGlyphRangesCyrillic());
+	
+	//io.ConfigFlags |= ImGuiConfigFlags_NavNoCaptureKeyboard;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
+	io.IniFilename = nullptr; // не нужно хранить файл настроек
+
+	if (!ImGui_ImplGlfw_InitForOpenGL(GetWindowSystem().GetHandle(), true))
+		return ;
+	const char* glsl_version = "#version 330";
+	if (!ImGui_ImplOpenGL3_Init(glsl_version))
+		return;
 }
 //-----------------------------------------------------------------------------
 EditorApp::EditorApp()
-	: _settings{
+	: m_settings{
 			.texturesDir = "../Data/Textures/Tiles/",
 			.shapesDir = "../Data/Models/Shapes/",
 			.undoMax = 30UL,
@@ -56,9 +79,9 @@ EditorApp::EditorApp()
 			.defaultTexturePath = "../Data/Textures/Tiles/texel_checker.png",
 			.defaultShapePath = "../Data/Models/Shapes/cube.obj",
 	}
-	,_previewDraw(false)
-	,_lastSavedPath()
-	,_quit(false)
+	, m_previewDraw(false)
+	, m_lastSavedPath()
+	, m_quit(false)
 {
 	App = this;
 }
@@ -72,26 +95,21 @@ bool EditorApp::Create()
 {
 	std::filesystem::directory_entry entry{ SETTINGS_FILE_PATH };
 	if (entry.exists())
-	{
 		LoadSettings();
-	}
 	else
-	{
 		SaveSettings();
-	}
 
-	_mapMan = std::make_unique<MapMan>();
-	_tilePlaceMode = std::make_unique<PlaceMode>(*_mapMan.get());
-	_texPickMode = std::make_unique<PickMode>(PickMode::Mode::TEXTURES);
-	_shapePickMode = std::make_unique<PickMode>(PickMode::Mode::SHAPES);
-	_entMode = std::make_unique<EntMode>();
-	_editorMode = _tilePlaceMode.get();
-	_menuBar = std::make_unique<MenuBar>(_settings);
+	m_mapManager = std::make_unique<MapMan>();
+	m_tilePlaceMode = std::make_unique<PlaceMode>(*m_mapManager.get());
+	m_texPickMode = std::make_unique<PickMode>(PickMode::Mode::TEXTURES);
+	m_shapePickMode = std::make_unique<PickMode>(PickMode::Mode::SHAPES);
+	m_entMode = std::make_unique<EntMode>();
+	m_editorMode = m_tilePlaceMode.get();
+	m_menuBar = std::make_unique<MenuBar>(m_settings);
 
 	rlLoadShaderDefault();
 	rlLoadTextureDefault();
 	createImgui();
-
 
 	ChangeEditorMode(Mode::PLACE_TILE);
 	NewMap(100, 5, 100);
@@ -120,18 +138,16 @@ void EditorApp::Render()
 	renderSystem.ClearFrame();
 
 	{
-		rlImGuiBegin();
-		_editorMode->Draw();
-		_menuBar->Draw();
-		rlImGuiEnd();
+		m_editorMode->Draw();
+		m_menuBar->Draw();
 	}
 
 	{
-		ImGui::Begin("Window");
-		ImGui::Text("Hello window!");
-		ImGui::SameLine();
-		ImGui::Button("Close");
-		ImGui::End();
+		//ImGui::Begin("Window");
+		//ImGui::Text("Hello window!");
+		//ImGui::SameLine();
+		//ImGui::Button("Close");
+		//ImGui::End();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -141,7 +157,7 @@ void EditorApp::Render()
 void EditorApp::Update(float deltaTime)
 {
 	{
-		_menuBar->Update(deltaTime);
+		m_menuBar->Update(deltaTime);
 
 		auto& input = GetInputSystem();
 
@@ -150,17 +166,17 @@ void EditorApp::Update(float deltaTime)
 		{
 			if (input.IsKeyDown(Input::KEY_LEFT_SHIFT))
 			{
-				if (_editorMode == _tilePlaceMode.get()) ChangeEditorMode(Mode::PICK_SHAPE);
+				if (m_editorMode == m_tilePlaceMode.get()) ChangeEditorMode(Mode::PICK_SHAPE);
 				else ChangeEditorMode(Mode::PLACE_TILE);
 			}
 			else if (input.IsKeyDown(Input::KEY_LEFT_CONTROL))
 			{
-				if (_editorMode == _tilePlaceMode.get()) ChangeEditorMode(Mode::EDIT_ENT);
-				else if (_editorMode == _entMode.get()) ChangeEditorMode(Mode::PLACE_TILE);
+				if (m_editorMode == m_tilePlaceMode.get()) ChangeEditorMode(Mode::EDIT_ENT);
+				else if (m_editorMode == m_entMode.get()) ChangeEditorMode(Mode::PLACE_TILE);
 			}
 			else
 			{
-				if (_editorMode == _tilePlaceMode.get()) ChangeEditorMode(Mode::PICK_TEXTURE);
+				if (m_editorMode == m_tilePlaceMode.get()) ChangeEditorMode(Mode::PICK_TEXTURE);
 				else ChangeEditorMode(Mode::PLACE_TILE);
 			}
 		}
@@ -174,11 +190,11 @@ void EditorApp::Update(float deltaTime)
 			}
 			else
 			{
-				_menuBar->OpenSaveMapDialog();
+				m_menuBar->OpenSaveMapDialog();
 			}
 		}
 
-		_editorMode->Update(deltaTime);
+		m_editorMode->Update(deltaTime);
 	}
 
 	ImGui_ImplOpenGL3_NewFrame();
@@ -205,81 +221,67 @@ EditorApp* GetApp()
 //-----------------------------------------------------------------------------
 void EditorApp::ChangeEditorMode(const Mode newMode)
 {
-	_editorMode->OnExit();
+	m_editorMode->OnExit();
 
-	if (_editorMode == _texPickMode.get() && _texPickMode->GetPickedTexture())
-	{
-		_tilePlaceMode->SetCursorTexture(_texPickMode->GetPickedTexture());
-	}
-	else if (_editorMode == _shapePickMode.get() && _shapePickMode->GetPickedShape())
-	{
-		_tilePlaceMode->SetCursorShape(_shapePickMode->GetPickedShape());
-	}
+	if (m_editorMode == m_texPickMode.get() && m_texPickMode->GetPickedTexture())
+		m_tilePlaceMode->SetCursorTexture(m_texPickMode->GetPickedTexture());
+	else if (m_editorMode == m_shapePickMode.get() && m_shapePickMode->GetPickedShape())
+		m_tilePlaceMode->SetCursorShape(m_shapePickMode->GetPickedShape());
 
 	switch (newMode)
 	{
 	case Mode::PICK_SHAPE:
-	{
-		_editorMode = _shapePickMode.get();
-	}
-	break;
+		m_editorMode = m_shapePickMode.get();
+		break;
 	case Mode::PICK_TEXTURE:
-	{
-		_editorMode = _texPickMode.get();
-	}
-	break;
+		m_editorMode = m_texPickMode.get();
+		break;
 	case Mode::PLACE_TILE:
-	{
-		if (_editorMode == _entMode.get())
-		{
-			_tilePlaceMode->SetCursorEnt(_entMode->GetEnt());
-		}
-		_editorMode = _tilePlaceMode.get();
-	}
-	break;
+		if (m_editorMode == m_entMode.get())
+			m_tilePlaceMode->SetCursorEnt(m_entMode->GetEnt());
+		m_editorMode = m_tilePlaceMode.get();
+		break;
 	case Mode::EDIT_ENT:
-	{
-		if (_editorMode == _tilePlaceMode.get()) _entMode->SetEnt(_tilePlaceMode->GetCursorEnt());
-		_editorMode = _entMode.get();
+		if (m_editorMode == m_tilePlaceMode.get()) m_entMode->SetEnt(m_tilePlaceMode->GetCursorEnt());
+		m_editorMode = m_entMode.get();
+		break;
 	}
-	break;
-	}
-	_editorMode->OnEnter();
+	m_editorMode->OnEnter();
 }
 //-----------------------------------------------------------------------------
 void EditorApp::DisplayStatusMessage(std::string message, float durationSeconds, int priority)
 {
-	_menuBar->DisplayStatusMessage(message, durationSeconds, priority);
+	m_menuBar->DisplayStatusMessage(message, durationSeconds, priority);
 }
 //-----------------------------------------------------------------------------
 void EditorApp::ResetEditorCamera()
 {
-	if (_editorMode == _tilePlaceMode.get())
+	if (m_editorMode == m_tilePlaceMode.get())
 	{
-		_tilePlaceMode->ResetCamera();
-		_tilePlaceMode->ResetGrid();
+		m_tilePlaceMode->ResetCamera();
+		m_tilePlaceMode->ResetGrid();
 	}
 }
 //-----------------------------------------------------------------------------
 void EditorApp::NewMap(int width, int height, int length)
 {
-	_mapMan->NewMap(width, height, length);
-	_tilePlaceMode->ResetCamera();
-	_tilePlaceMode->ResetGrid();
-	_lastSavedPath = "";
+	m_mapManager->NewMap(width, height, length);
+	m_tilePlaceMode->ResetCamera();
+	m_tilePlaceMode->ResetGrid();
+	m_lastSavedPath = "";
 }
 //-----------------------------------------------------------------------------
 void EditorApp::ExpandMap(Direction axis, int amount)
 {
-	_mapMan->ExpandMap(axis, amount);
-	_tilePlaceMode->ResetGrid();
+	m_mapManager->ExpandMap(axis, amount);
+	m_tilePlaceMode->ResetGrid();
 }
 //-----------------------------------------------------------------------------
 void EditorApp::ShrinkMap()
 {
-	_mapMan->ShrinkMap();
-	_tilePlaceMode->ResetGrid();
-	_tilePlaceMode->ResetCamera();
+	m_mapManager->ShrinkMap();
+	m_tilePlaceMode->ResetGrid();
+	m_tilePlaceMode->ResetCamera();
 }
 //-----------------------------------------------------------------------------
 void EditorApp::TryOpenMap(std::filesystem::path path)
@@ -289,33 +291,33 @@ void EditorApp::TryOpenMap(std::filesystem::path path)
 	{
 		if (path.extension() == ".te3")
 		{
-			if (_mapMan->LoadTE3Map(path))
+			if (m_mapManager->LoadTE3Map(path))
 			{
-				_lastSavedPath = path;
+				m_lastSavedPath = path;
 				DisplayStatusMessage("Loaded .te3 map '" + path.filename().string() + "'.", 5.0f, 100);
 			}
 			else
 			{
 				DisplayStatusMessage("ERROR: Failed to load .te3 map. Check the console.", 5.0f, 100);
 			}
-			_tilePlaceMode->ResetCamera();
+			m_tilePlaceMode->ResetCamera();
 			// Set editor camera to saved position
-			_tilePlaceMode->SetCameraOrientation(_mapMan->GetDefaultCameraPosition(), _mapMan->GetDefaultCameraAngles());
-			_tilePlaceMode->ResetGrid();
+			m_tilePlaceMode->SetCameraOrientation(m_mapManager->GetDefaultCameraPosition(), m_mapManager->GetDefaultCameraAngles());
+			m_tilePlaceMode->ResetGrid();
 		}
 		else if (path.extension() == ".ti")
 		{
-			if (_mapMan->LoadTE2Map(path))
+			if (m_mapManager->LoadTE2Map(path))
 			{
-				_lastSavedPath = "";
+				m_lastSavedPath = "";
 				DisplayStatusMessage("Loaded .ti map '" + path.filename().string() + "'.", 5.0f, 100);
 			}
 			else
 			{
 				DisplayStatusMessage("ERROR: Failed to load .ti map. Check the console.", 5.0f, 100);
 			}
-			_tilePlaceMode->ResetCamera();
-			_tilePlaceMode->ResetGrid();
+			m_tilePlaceMode->ResetCamera();
+			m_tilePlaceMode->ResetGrid();
 		}
 		else
 		{
@@ -340,9 +342,9 @@ void EditorApp::TrySaveMap(std::filesystem::path path)
 
 	if (path.extension() == ".te3")
 	{
-		if (_mapMan->SaveTE3Map(path))
+		if (m_mapManager->SaveTE3Map(path))
 		{
-			_lastSavedPath = path;
+			m_lastSavedPath = path;
 			std::string msg = "Saved .te3 map '";
 			msg += path.filename().string();
 			msg += "'.";
@@ -371,7 +373,7 @@ void EditorApp::TryExportMap(std::filesystem::path path, bool separateGeometry)
 
 	if (path.extension() == ".gltf" || path.extension() == ".glb")
 	{
-		if (_mapMan->ExportGLTFScene(path, separateGeometry))
+		if (m_mapManager->ExportGLTFScene(path, separateGeometry))
 		{
 			DisplayStatusMessage(std::string("Exported map as ") + path.filename().string(), 5.0f, 100);
 		}
@@ -391,7 +393,7 @@ void EditorApp::SaveSettings()
 	try
 	{
 		nlohmann::json jData;
-		EditorApp::to_json(jData, _settings);
+		EditorApp::to_json(jData, m_settings);
 		std::ofstream file(SETTINGS_FILE_PATH);
 		file << jData;
 	}
@@ -408,7 +410,7 @@ void EditorApp::LoadSettings()
 		nlohmann::json jData;
 		std::ifstream file(SETTINGS_FILE_PATH);
 		file >> jData;
-		EditorApp::from_json(jData, _settings);
+		EditorApp::from_json(jData, m_settings);
 	}
 	catch (std::exception e)
 	{

@@ -150,14 +150,6 @@ struct Matrix {
 	float m3, m7, m11, m15; // Matrix fourth row (4 components)
 };
 
-// Color, 4 components, R8G8B8A8 (32bit)
-struct RLColor {
-	unsigned char r;        // Color red value
-	unsigned char g;        // Color green value
-	unsigned char b;        // Color blue value
-	unsigned char a;        // Color alpha value
-};
-
 // Camera projection
 enum CameraProjection {
 	CAMERA_PERSPECTIVE = 0,         // Perspective projection
@@ -247,7 +239,7 @@ typedef struct RLShader {
 // MaterialMap
 struct RLMaterialMap {
 	RLTexture2D texture;      // Material map texture
-	RLColor color;            // Material map color
+	Color color;            // Material map color
 	float value;            // Material map value
 };
 
@@ -657,8 +649,8 @@ RLAPI void DrawMeshInstanced(RLMesh mesh, RLMaterial material, const Matrix* tra
 
 RLAPI void rlEnableShader(unsigned int id);             // Enable shader program
 
-RLAPI void DrawModel(RLModel model, Vector3 position, float scale, RLColor tint);               // Draw a model (with texture if set)
-RLAPI void DrawModelEx(RLModel model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, RLColor tint); // Draw a model with extended parameters
+RLAPI void DrawModel(RLModel model, Vector3 position, float scale, Color tint);               // Draw a model (with texture if set)
+RLAPI void DrawModelEx(RLModel model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint); // Draw a model with extended parameters
 RLAPI void DrawMesh(RLMesh mesh, RLMaterial material, Matrix transform);                        // Draw a 3d mesh with material and transform
 
 RLAPI void rlSetUniform(int locIndex, const void* value, int uniformType, int count); // Set shader value uniform
@@ -703,8 +695,8 @@ RLAPI RayCollision GetRayCollisionQuad(RLRay ray, Vector3 p1, Vector3 p2, Vector
 
 RLAPI void ImageResize(RLImage* image, int newWidth, int newHeight);                                       // Resize image (Bicubic scaling algorithm)
 RLAPI int GetPixelDataSize(int width, int height, int format);              // Get pixel data size in bytes for certain format
-RLAPI RLColor* LoadImageColors(RLImage image);                                                               // Load color data from image as a Color array (RGBA - 32bit)
-RLAPI void UnloadImageColors(RLColor* colors);                                                             // Unload color data loaded with LoadImageColors()
+RLAPI Color* LoadImageColors(RLImage image);                                                               // Load color data from image as a Color array (RGBA - 32bit)
+RLAPI void UnloadImageColors(Color* colors);                                                             // Unload color data loaded with LoadImageColors()
 RLAPI void RLImageFormat(RLImage* image, int newFormat);                                                     // Convert image data to desired format
 
 RLAPI const char* TextToLower(const char* text);                      // Get lower case version of provided string

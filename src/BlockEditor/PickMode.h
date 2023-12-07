@@ -1,11 +1,11 @@
 #pragma once
 
-#include "ModeImpl.h"
+#include "IMode.h"
 #include "Assets.h"
 
 #define SEARCH_BUFFER_SIZE 256
 
-class PickMode : public ModeImpl
+class PickMode : public IMode
 {
 public:
     //Represents a selectable frame in the list or grid of the picker
